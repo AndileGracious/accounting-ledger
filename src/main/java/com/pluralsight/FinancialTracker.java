@@ -128,20 +128,24 @@ public class FinancialTracker {
         System.out.println("Enter the description of the item: ");
         String description = scanner.nextLine();
         System.out.println("Enter the name of the Vendor: ");
-        String vender = scanner.nextLine();
+        String vendor = scanner.nextLine();
 
         LocalDateTime dateTime = LocalDateTime.parse(date, DATETIME_FMT);
         LocalDate parsedDate = dateTime.toLocalDate();
         LocalTime parsedTime = dateTime.toLocalTime();
 
         try {
-            Transaction transaction = new Transaction(parsedDate, parsedTime, description, vender, amount);
+            Transaction transaction = new Transaction(parsedDate, parsedTime, description, vendor, amount);
             transactions.add(transaction);
             FileWriter fileWriter = new FileWriter(FILE_NAME, true);
             String dateString = parsedDate.format(DATE_FMT);
             String timeString = parsedTime.format(TIME_FMT);
 
-            String line = dateString + "|" + timeString + "|"+ description  + "|" + vender + "|" + amount;
+            String line = dateString + "|" + timeString + "|"+ description  + "|" + vendor + "|" + amount;
+            BufferedWriter writer = new BufferedWriter(fileWriter);
+            writer.write(line);
+            writer.newLine();
+            writer.close();
         } catch (IOException e) {
             System.out.println("Error detected");;
         }
