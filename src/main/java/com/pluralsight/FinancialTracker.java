@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -99,6 +100,7 @@ public class FinancialTracker {
 
                transactions.add(new Transaction(date, time, description, vendor, amount));
            }
+           bufferedReader.close();
 
            } catch (Exception e) {
                System.out.println("An error has occured while reading the file");
@@ -119,6 +121,24 @@ public class FinancialTracker {
      */
     private static void addDeposit(Scanner scanner) {
         // TODO
+
+        System.out.println("Enter date and time in the following format yyyy-MM-dd HH:mm:ss : ");
+        String date = scanner.nextLine();
+        System.out.println("Enter the Amount: ");
+        double amount = scanner.nextDouble();
+        scanner.nextLine();
+        System.out.println("Enter the description of the item: ");
+        String description = scanner.nextLine();
+        System.out.println("Enter the name of the Vendor: ");
+        String vender = scanner.nextLine();
+
+        LocalDateTime dateTime = LocalDateTime.parse(date, DATETIME_FMT);
+        LocalDate parsedDate = dateTime.toLocalDate();
+        LocalTime parsedTime = dateTime.toLocalTime();
+
+
+
+
     }
 
     /**
