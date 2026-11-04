@@ -160,6 +160,46 @@ public class FinancialTracker {
      */
     private static void addPayment(Scanner scanner) {
         // TODO
+        System.out.println("Please enter date in the following format yyyy-MM-dd HH:mm:ss : ");
+        String date = scanner.nextLine();
+        System.out.println("Enter the payment amount: ");
+        double amount = scanner.nextDouble();
+        scanner.nextLine();
+        System.out.println("Enter the description of the item: ");
+        String description = scanner.nextLine();
+        System.out.println("Enter the name of the vendor: ");
+        String vendor = scanner.nextLine();
+
+        LocalDateTime dateTime = LocalDateTime.parse(date, DATETIME_FMT);
+        LocalDate parsedDate = dateTime.toLocalDate();
+        LocalTime parsedTime = dateTime.toLocalTime();
+
+        if (amount > 0){
+            amount = amount * -1;
+
+            try {
+
+                Transaction transaction = new Transaction(parsedDate, parsedTime, description, vendor, amount);
+                transactions.add(transaction);
+                FileWriter fileWriter = new FileWriter(FILE_NAME, true);
+                String dateString = parsedDate.format(DATE_FMT);
+                String timeString = parsedTime.format(TIME_FMT);
+
+                String line = dateString + "|" + timeString + "|"+ description  + "|" + vendor + "|" + amount;
+                BufferedWriter writer = new BufferedWriter(fileWriter);
+                writer.write(line);
+                writer.newLine();
+                writer.close();
+
+
+            } catch (Exception e) {
+                System.out.println("An error has been detected");;
+            }
+
+
+        }
+
+
     }
 
     /* ------------------------------------------------------------------
