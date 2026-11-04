@@ -6,9 +6,9 @@ import java.time.LocalTime;
 public class Transaction {
     private LocalDate date;
     private LocalTime time;
-    private String decription;
+    private String description;
     private String vendor;
-    private double Amount;
+    private double amount;
 
     public LocalDate getDate() {
         return date;
@@ -18,8 +18,8 @@ public class Transaction {
         return time;
     }
 
-    public String getDecription() {
-        return decription;
+    public String getDescription() {
+        return description;
     }
 
     public String getVendor() {
@@ -27,15 +27,18 @@ public class Transaction {
     }
 
     public double getAmount() {
-        return Amount;
+        return amount;
+    }
+    public String toString(){
+        return date + "|" + time + "|" + description + "|" + vendor + "|" + amount;
     }
 
-    public Transaction(LocalDate date, LocalTime time, String decription, String vendor, double amount) {
+    public Transaction(LocalDate date, LocalTime time, String description, String vendor, double amount) {
         this.date = date;
         this.time = time;
-        this.decription = decription;
+        this.description = description;
         this.vendor = vendor;
-        Amount = amount;
+        this.amount = amount;
 
 
     }
