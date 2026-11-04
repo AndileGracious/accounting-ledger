@@ -1,8 +1,6 @@
 package com.pluralsight;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -136,7 +134,17 @@ public class FinancialTracker {
         LocalDate parsedDate = dateTime.toLocalDate();
         LocalTime parsedTime = dateTime.toLocalTime();
 
+        try {
+            Transaction transaction = new Transaction(parsedDate, parsedTime, description, vender, amount);
+            transactions.add(transaction);
+            FileWriter fileWriter = new FileWriter(FILE_NAME, true);
+            String dateString = parsedDate.format(DATE_FMT);
+            String timeString = parsedTime.format(TIME_FMT);
 
+            String line = dateString + "|" + timeString + "|"+ description  + "|" + vender + "|" + amount;
+        } catch (IOException e) {
+            System.out.println("Error detected");;
+        }
 
 
     }
