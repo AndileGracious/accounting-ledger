@@ -250,8 +250,15 @@ public class FinancialTracker {
 
     }
 
-    private static void displayPayments() { /* TODO – only amount < 0               */ }
+    private static void displayPayments() {
+        /* TODO – only amount < 0               */
+        for (int i = transactions.size() - 1; i >= 0; i--) {
+            if (transactions.get(i).getAmount() < 0) {
+                System.out.println(transactions.get(i));
+            }
 
+        }
+    }
     /* ------------------------------------------------------------------
        Reports menu
        ------------------------------------------------------------------ */
