@@ -232,7 +232,12 @@ public class FinancialTracker {
     /* ------------------------------------------------------------------
        Display helpers: show data in neat columns
        ------------------------------------------------------------------ */
-    private static void displayLedger() { /* TODO – print all transactions in column format, newest first */ }
+    private static void displayLedger() {
+        /* TODO – print all transactions in column format, newest first */
+        for (int i = transactions.size() - 1; i >= 0; i--){
+            System.out.println(transactions.get(i));
+        }
+    }
 
     private static void displayDeposits() { /* TODO – only amount > 0               */ }
 
