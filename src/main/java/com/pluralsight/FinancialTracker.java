@@ -105,7 +105,7 @@ public class FinancialTracker {
             bufferedReader.close();
 
         } catch (Exception e) {
-            System.out.println("An error has occured while reading the file");
+            System.out.println("An error has occurred while reading the file");
         }
 
 
@@ -292,10 +292,35 @@ public class FinancialTracker {
             String input = scanner.nextLine().trim();
 
             switch (input) {
-                case "1" -> {/* TODO – month-to-date report */ }
-                case "2" -> {/* TODO – previous month report */ }
-                case "3" -> {/* TODO – year-to-date report   */ }
-                case "4" -> {/* TODO – previous year report  */ }
+                case "1" -> {
+                    /* TODO – month-to-date report */
+                    LocalDate today = LocalDate.now();
+                    LocalDate start = today.withDayOfMonth(1);
+                    filterTransactionsByDate(start, today);
+                }
+                case "2" -> {
+                    /* TODO – previous month report */
+                    LocalDate today = LocalDate.now();
+                    LocalDate previous = today.minusMonths(1);
+                    LocalDate start = previous.withDayOfMonth(1);
+                    LocalDate end = previous.withDayOfMonth(previous.lengthOfMonth());
+                    filterTransactionsByDate(start, end);
+
+                }
+                case "3" -> {
+                    /* TODO – year-to-date report   */
+                    LocalDate today = LocalDate.now();
+                    LocalDate start = today.withDayOfYear(1);
+                    filterTransactionsByDate(start, today);
+                }
+                case "4" -> {
+                    /* TODO – previous year report  */
+                    LocalDate today = LocalDate.now();
+                    LocalDate previous = today.minusYears(1);
+                    LocalDate start = previous.withDayOfYear(1);
+                    LocalDate end  = previous.withDayOfYear(previous.lengthOfYear());
+                    filterTransactionsByDate(start, end);
+                }
                 case "5" -> {/* TODO – prompt for vendor then report */ }
                 case "6" -> customSearch(scanner);
                 case "0" -> running = false;
@@ -309,6 +334,12 @@ public class FinancialTracker {
        ------------------------------------------------------------------ */
     private static void filterTransactionsByDate(LocalDate start, LocalDate end) {
         // TODO – iterate transactions, print those within the range
+        for (Transaction transaction : transactions) {
+            if(!transaction.getDate().isBefore(start) && !transaction.getDate().isAfter(end)){
+                System.out.println(transaction);
+            }
+
+        }
 
 
 
@@ -317,6 +348,12 @@ public class FinancialTracker {
 
     private static void filterTransactionsByVendor(String vendor) {
         // TODO – iterate transactions, print those with matching vendor
+        for (Transaction transaction : transactions) {
+            if (transaction.getVendor().equalsIgnoreCase(vendor)){
+                System.out.println(transaction);
+            }
+
+        }
     }
 
     private static void customSearch(Scanner scanner) {
