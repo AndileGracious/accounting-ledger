@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 
 /*
@@ -42,6 +43,7 @@ public class FinancialTracker {
        ------------------------------------------------------------------ */
     public static void main(String[] args) {
         loadTransactions(FILE_NAME);
+        sortTransactions();
 
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
@@ -67,7 +69,9 @@ public class FinancialTracker {
         }
         scanner.close();
     }
-
+        public static void sortTransactions(){
+        transactions.sort(Comparator.comparing(Transaction::getDate).thenComparing(Transaction::getTime).reversed());
+}
     /* ------------------------------------------------------------------
        File I/O
        ------------------------------------------------------------------ */
@@ -83,26 +87,26 @@ public class FinancialTracker {
         //       and add it to the transactions list.
 
 
-       try {
-           FileReader fileReader = new FileReader(FILE_NAME);
-           BufferedReader bufferedReader = new BufferedReader(fileReader);
+        try {
+            FileReader fileReader = new FileReader(FILE_NAME);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-           String line;
-           while ((line = bufferedReader.readLine()) !=null) {
-               String[] parts = line.split("\\|");
-               LocalDate date = LocalDate.parse(parts[0]);
-               LocalTime time = LocalTime.parse(parts[1]);
-               String description = parts[2];
-               String vendor = parts[3];
-               double amount = Double.parseDouble(parts[4]);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] parts = line.split("\\|");
+                LocalDate date = LocalDate.parse(parts[0]);
+                LocalTime time = LocalTime.parse(parts[1]);
+                String description = parts[2];
+                String vendor = parts[3];
+                double amount = Double.parseDouble(parts[4]);
 
-               transactions.add(new Transaction(date, time, description, vendor, amount));
-           }
-           bufferedReader.close();
+                transactions.add(new Transaction(date, time, description, vendor, amount));
+            }
+            bufferedReader.close();
 
-           } catch (Exception e) {
-               System.out.println("An error has occured while reading the file");
-       }
+        } catch (Exception e) {
+            System.out.println("An error has occured while reading the file");
+        }
 
 
     }
@@ -141,15 +145,16 @@ public class FinancialTracker {
             String dateString = parsedDate.format(DATE_FMT);
             String timeString = parsedTime.format(TIME_FMT);
 
-            String line = dateString + "|" + timeString + "|"+ description  + "|" + vendor + "|" + amount;
+            String line = dateString + "|" + timeString + "|" + description + "|" + vendor + "|" + amount;
             BufferedWriter writer = new BufferedWriter(fileWriter);
             writer.write(line);
             writer.newLine();
             writer.close();
         } catch (IOException e) {
-            System.out.println("Error detected");;
+            System.out.println("Error detected");
+            ;
         }
-
+           sortTransactions();
 
     }
 
@@ -174,7 +179,7 @@ public class FinancialTracker {
         LocalDate parsedDate = dateTime.toLocalDate();
         LocalTime parsedTime = dateTime.toLocalTime();
 
-        if (amount > 0){
+        if (amount > 0) {
             amount = amount * -1;
 
             try {
@@ -185,7 +190,7 @@ public class FinancialTracker {
                 String dateString = parsedDate.format(DATE_FMT);
                 String timeString = parsedTime.format(TIME_FMT);
 
-                String line = dateString + "|" + timeString + "|"+ description  + "|" + vendor + "|" + amount;
+                String line = dateString + "|" + timeString + "|" + description + "|" + vendor + "|" + amount;
                 BufferedWriter writer = new BufferedWriter(fileWriter);
                 writer.write(line);
                 writer.newLine();
@@ -193,8 +198,10 @@ public class FinancialTracker {
 
 
             } catch (Exception e) {
-                System.out.println("An error has been detected");;
+                System.out.println("An error has been detected");
+                ;
             }
+            sortTransactions();
 
 
         }
@@ -207,6 +214,7 @@ public class FinancialTracker {
        ------------------------------------------------------------------ */
     private static void ledgerMenu(Scanner scanner) {
         boolean running = true;
+
         while (running) {
             System.out.println("Ledger");
             System.out.println("Choose an option:");
@@ -234,17 +242,22 @@ public class FinancialTracker {
        ------------------------------------------------------------------ */
     private static void displayLedger() {
         /* TODO – print all transactions in column format, newest first */
-        for (int i = transactions.size() - 1; i >= 0; i--){
-            System.out.println(transactions.get(i));
+
+        for (Transaction transaction : transactions) {
+            System.out.println(transaction);
+
         }
     }
 
     private static void displayDeposits() {
         /* TODO – only amount > 0 */
-        for (int i = transactions.size() - 1; i >= 0; i--){
-            if (transactions.get(i).getAmount() > 0){
-                System.out.println(transactions.get(i));
-            }
+
+        for (Transaction transaction : transactions) {
+            if (transaction.getAmount() > 0){
+                System.out.println(transaction);
+
+
+        }
         }
 
 
@@ -252,13 +265,14 @@ public class FinancialTracker {
 
     private static void displayPayments() {
         /* TODO – only amount < 0               */
-        for (int i = transactions.size() - 1; i >= 0; i--) {
-            if (transactions.get(i).getAmount() < 0) {
-                System.out.println(transactions.get(i));
+        for (Transaction transaction : transactions) {
+            if (transaction.getAmount() < 0) {
+                System.out.println(transaction);
             }
 
         }
     }
+
     /* ------------------------------------------------------------------
        Reports menu
        ------------------------------------------------------------------ */
@@ -295,7 +309,11 @@ public class FinancialTracker {
        ------------------------------------------------------------------ */
     private static void filterTransactionsByDate(LocalDate start, LocalDate end) {
         // TODO – iterate transactions, print those within the range
-    }
+
+
+
+        }
+
 
     private static void filterTransactionsByVendor(String vendor) {
         // TODO – iterate transactions, print those with matching vendor
