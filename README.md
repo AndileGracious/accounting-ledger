@@ -1,39 +1,27 @@
-# Project Title
+# My Accounting Ledger
 
-<!-- HOW TO USE THIS TEMPLATE
-     Save it as README.md at the root of your project, next to pom.xml. Replace every comment like this one
-     with your own text; comments do not show on GitHub, so what you leave untouched shows as an empty heading.
-     Two sections are optional and say so: Class Diagram, and Data and configuration. When your project does not
-     need one, delete the whole section, heading included. Every other section stays. -->
 
-<!-- One sentence under the title: what the app is, for whom.
-     Example: A console app that keeps a store's inventory in a csv file and lets a clerk search it. -->
 
 ## Description of the Project
 
-<!-- Three to five sentences. What the application does, who uses it, what problem it solves.
-     Write it for someone who has never seen the workbook: a recruiter, a classmate, you in six months. -->
+A java console app that tracks deposits and payments
 
 
 
 ## Features
+- add deposits
+- make a payment
+- view the ledger
+- view reports
+- search by vendor
 
-<!-- One bullet per thing the app can do, in the order of your menu. Mark bonuses.
-     For an API (Capstone 3), one line per endpoint instead: method, path, what it does.
-     Be honest: list what works. If something is half done, say so under Future Work instead.
-     Example:
-     - Shows every product in the store
-     - Searches products by name (bonus) -->
 
--
--
--
+
+
+
 
 ## User Stories
 
-<!-- The stories you worked from, one per bullet, in the format you learned in Workbook 3b:
-     As a [type of user], I want [some goal] so that [some reason].
-     Same text as the cards on your GitHub project board. -->
 
 - As a ..., I want ..., so that ...
 - As a ..., I want ..., so that ...
@@ -59,8 +47,7 @@
      program creates, a database script to run first, a settings file to edit (connection, port).
      If there is nothing, delete this subsection, heading included.
      Example:
-     - `inventory.csv` sits at the project root, next to `pom.xml`. The program reads it at start.
-     - `logs.txt` is created by the program at the project root on the first run. -->
+     
 
 -
 
